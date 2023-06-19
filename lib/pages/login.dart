@@ -7,7 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/user_model.dart';
+// import '../models/user_model.dart';
 
 class MyLoginPage extends StatefulWidget {
   const MyLoginPage({super.key});
@@ -34,34 +34,14 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
     var data = json.decode(response.body);
 
-    // if (kDebugMode) {
-    //   print('error, $data');
-    // }
-    UserProfile userProfile = UserProfile(
-      nama: data['nama'].toString(),
-      username: data['username'].toString(),
-      // email: data['email'],
-      // avatarUrl: data['avatar'],
-    );
+    Future<void> saveUserCredentials() async {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('username', usernameController.text);
+      await prefs.setString('password', passwordController.text);
+    }
 
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('name', userProfile.nama);
-    prefs.setString('username', userProfile.username);
-    // prefs.setString('email', userProfile.email);
-    // prefs.setString('avatarUrl', userProfile.avatarUrl)
     if (data['status'] == 'success') {
-      // UserProfile userProfile = UserProfile(
-      //   nama: data['nama'],
-      //   username: data['username'],
-      //   // email: data['email'],
-      //   // avatarUrl: data['avatar'],
-      // );
-
-      // SharedPreferences prefs = await SharedPreferences.getInstance();
-      // prefs.setString('name', userProfile.nama);
-      // prefs.setString('username', userProfile.username);
-      // // prefs.setString('email', userProfile.email);
-      // // prefs.setString('avatarUrl', userProfile.avatarUrl);
+      saveUserCredentials();
 
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
@@ -70,10 +50,6 @@ class _MyLoginPageState extends State<MyLoginPage> {
           builder: (context) => const MyHomePage(),
         ),
       );
-      // Login berhasil
-      // Navigator.pushReplacement(context,
-      //   MaterialPageRoute(builder: (context) => HomePage()),
-      // );
     } else {
       // Login gagal
       // ignore: use_build_context_synchronously

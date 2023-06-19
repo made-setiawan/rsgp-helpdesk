@@ -18,16 +18,20 @@ class _MyRegisPageState extends State<MyRegisPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
+  TextEditingController noHpController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
 
   Future<void> registerUser() async {
-    var url =
-        Uri.parse('http://192.168.77.123/test-api/api_php.php?action=register');
+    var url = Uri.parse(
+        'http://192.168.77.123/help-desk/api_php.php?action=register');
     var response = await http.post(
       url,
       body: {
         'username': usernameController.text,
         'password': passwordController.text,
-        'nama': nameController.text
+        'nama': nameController.text,
+        'email': emailController.text,
+        'nohp': noHpController.text
       },
     );
 
@@ -158,6 +162,46 @@ class _MyRegisPageState extends State<MyRegisPage> {
                   ),
                 ),
                 const SizedBox(
+                  height: 8,
+                ),
+                TextField(
+                  controller: emailController,
+                  decoration: InputDecoration(
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    fillColor: Colors.grey.shade200,
+                    filled: true,
+                    hintText: 'Email',
+                    hintStyle: TextStyle(
+                      color: Colors.grey[500],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                TextField(
+                  controller: noHpController,
+                  decoration: InputDecoration(
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    fillColor: Colors.grey.shade200,
+                    filled: true,
+                    hintText: 'No HP',
+                    hintStyle: TextStyle(
+                      color: Colors.grey[500],
+                    ),
+                  ),
+                ),
+                const SizedBox(
                   height: 20,
                 ),
                 SizedBox(
@@ -171,7 +215,7 @@ class _MyRegisPageState extends State<MyRegisPage> {
                       backgroundColor: Colors.black54,
                     ),
                     child: const Text(
-                      "Login",
+                      "Registrasi",
                       style: TextStyle(
                         fontSize: 18.0,
                       ),
