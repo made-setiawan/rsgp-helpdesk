@@ -5,6 +5,7 @@ import 'package:helpdesk_rsgp/pages/home.dart';
 import 'package:helpdesk_rsgp/pages/login.dart';
 import 'package:lottie/lottie.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyRegisPage extends StatefulWidget {
   const MyRegisPage({super.key});
@@ -22,8 +23,13 @@ class _MyRegisPageState extends State<MyRegisPage> {
   TextEditingController emailController = TextEditingController();
 
   Future<void> registerUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('username', usernameController.text);
+
     var url = Uri.parse(
-        'http://192.168.77.123/help-desk/api_php.php?action=register');
+        // 'http://192.168.77.123/help-desk/api_php.php?action=register');
+        'https://gadingpluit-hospital.com/helpdesk/api_php.php?action=register');
+
     var response = await http.post(
       url,
       body: {

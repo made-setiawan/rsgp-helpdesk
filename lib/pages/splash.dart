@@ -1,19 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MySplashPage extends StatelessWidget {
   const MySplashPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 5), () {
-      // Check if user is logged in
-      late bool isLoggedIn = true; // Replace with your login check logic
+    Future.delayed(const Duration(seconds: 5), () async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      // bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+      // bool checkUserLoggedIn() {
+      //   // You can implement your logic here to check if the user is logged in
+      //   // Return true if logged in, false otherwise
+      //   return false;
+      // }
 
+      // SharedPreferences prefs = await SharedPreferences.getInstance();
+      // Check if user is logged in
+      // late bool isLoggedIn = true; // Replace with your login check logic
+      // bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+      // bool isLoggedIn = checkUserLoggedIn();
+      bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
       if (isLoggedIn) {
-        Navigator.pushReplacementNamed(context, '/login');
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacementNamed(context, '/home');
       } else {
-        Navigator.pushReplacementNamed(context, '/onboard');
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacementNamed(context, '/login');
       }
     });
 
@@ -67,11 +82,12 @@ class MySplashPage extends StatelessWidget {
                       Text(
                         'RS GADING PLUIT',
                         style: TextStyle(
-                          fontSize: 30,
+                          fontSize: 25,
                           color: Colors.red,
                           fontWeight: FontWeight.bold,
                         ),
                         textDirection: TextDirection.ltr,
+                        overflow: TextOverflow.fade, // atau TextOverflow.fade
                       ),
                       // SizedBox(
                       //   width: 10,

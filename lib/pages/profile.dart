@@ -40,8 +40,8 @@ class _MyProfilePageState extends State<MyProfilePage> {
     _username = prefs.getString('username')!;
     // Ganti URL dengan URL endpoint yang sesuai untuk mengambil data profil pengguna dari tabel pengguna
     var url = Uri.parse(
-        'http://192.168.77.123/help-desk/api_php.php?action=getProfile');
-
+        // 'http://192.168.77.123/help-desk/api_php.php?action=getProfile');
+        'https://gadingpluit-hospital.com/helpdesk/api_php.php?action=getProfile');
     var response = await http.post(
       url,
       body: {
@@ -76,16 +76,16 @@ class _MyProfilePageState extends State<MyProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () {
-                logoutUser();
-              },
-              icon: const Icon(Icons.logout))
-        ],
-        title: const Text('User Profile'),
-      ),
+      // appBar: AppBar(
+      //   actions: [
+      //     IconButton(
+      //         onPressed: () {
+      //           logoutUser();
+      //         },
+      //         icon: const Icon(Icons.logout))
+      //   ],
+      //   title: const Text('User Profile'),
+      // ),
       body: _userProfile != null
           ? Center(
               child: Column(

@@ -22,8 +22,8 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
   //login api atas 192.168.77.123, 10.0.2.2
   Future<void> loginUser() async {
-    var url =
-        Uri.parse('http://192.168.77.123/test-api/api_php.php?action=login');
+    var url = Uri.parse(
+        'https://gadingpluit-hospital.com/helpdesk/api_php.php?action=login');
     var response = await http.post(
       url,
       body: {
@@ -38,6 +38,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('username', usernameController.text);
       await prefs.setString('password', passwordController.text);
+      await prefs.setBool('isLoggedIn', true);
     }
 
     if (data['status'] == 'success') {
